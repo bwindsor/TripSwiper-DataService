@@ -11,6 +11,12 @@ TODAY = "Today"
 def isInvalidAttribute(string):
       return not string or all(c.isspace() for c in string)
 
+def getPhotoURL(event):
+  try:
+    return event['image']['medium']['url']
+  except:
+    return
+
 class Eventful(object):
   def __init__(self):
     config = Config()
@@ -49,6 +55,9 @@ class Eventful(object):
       if isInvalidAttribute(event['start_time']):
         return
       parse_event.startTime = event['start_time']
+      if not getPhotoURL(event):
+        return
+      parse_event.photoURL = getPhotoURL(event)
       parse_event.category = category
       return parse_event
     except KeyError:

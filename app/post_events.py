@@ -8,7 +8,6 @@ def configureParse():
   config.registerParseApp()
 
 def postEvents(events, category):
-  print events
   parse_events = []
   for event in events['event']:
     parse_event = Eventful.objectFromJSON(event,category)
