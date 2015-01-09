@@ -58,6 +58,10 @@ class Eventful(object):
       if not getPhotoURL(event):
         return
       parse_event.photoURL = getPhotoURL(event)
+      if isInvalidAttribute(event['url']):
+        print "We fucked this up."
+        return
+      parse_event.eventURL = event['url']
       parse_event.category = category
       return parse_event
     except KeyError:

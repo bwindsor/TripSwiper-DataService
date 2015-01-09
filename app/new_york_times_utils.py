@@ -74,7 +74,10 @@ class NewYorkTimes(object):
       parse_event.photoURL = DEFAULT_PHOTO
       if isInvalidAttribute(event['category']):
         return
-      parse_event.venueName = event['category']
+      parse_event.category = event['category']
+      if isInvalidAttribute(event['event_detail_url']):
+        return
+      parse_event.eventURL = event['event_detail_url']
       return parse_event
     except KeyError:
       print "We missed a key!"

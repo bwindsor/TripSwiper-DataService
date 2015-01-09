@@ -4,7 +4,8 @@ from parse_rest.connection import ParseBatcher
 import sys, traceback
 
 def postEvents(events):
-  print events
+  batcher = ParseBatcher()
+  batcher.batch_save(events)
 
 if __name__ == "__main__":
   Config().registerParseApp()
