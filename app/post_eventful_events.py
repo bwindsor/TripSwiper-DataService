@@ -3,10 +3,6 @@ from config import Config
 from parse_rest.connection import ParseBatcher
 import sys, traceback
 
-def configureParse():
-  config = Config()
-  config.registerParseApp()
-
 def postEvents(events, category):
   parse_events = []
   for event in events['event']:

@@ -7,6 +7,8 @@ PARSE_MASTER_KEY = 'parse_master_key'
 
 EVENTFUL_API_KEY = 'eventful_api_key'
 
+NEW_YORK_TIMES_API_KEY = 'new_york_times_api_key'
+
 class Config(object):
   def __init__(self):
     self.api_keys = self.loadAPIKeys()
@@ -28,6 +30,9 @@ class Config(object):
 
   def registerEventfulAPI(self):
     return eventful.API(self.api_keys[EVENTFUL_API_KEY])
+
+  def getNYTKey(self):
+    return self.api_keys[NEW_YORK_TIMES_API_KEY]
 
 
 
