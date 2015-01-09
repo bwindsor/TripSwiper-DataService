@@ -1,4 +1,4 @@
 from parse_rest.datatypes import Object
 
-class TestObject(Object):
+class Event(Object):
   pass

@@ -1,6 +1,6 @@
-import config, models
+from config import Config
 
 if __name__ == '__main__':
+  config = Config()
   config.registerParseApp()
-  test_model = models.TestObject(sampleText="Hello there!")
-  test_model.save()
+  config.registerEventfulAPI()
