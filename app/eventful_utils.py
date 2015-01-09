@@ -8,6 +8,8 @@ CATEGORIES_SEARCH = "/categories/list"
 NEW_YORK = "New York, NY"
 TODAY = "Today"
 
+def isInvalidAttribute(string):
+      return not string or all(c.isspace() for c in string)
 
 class Eventful(object):
   def __init__(self):
@@ -25,13 +27,27 @@ class Eventful(object):
   def objectFromJSON(event, category):
     try:
       parse_event = Event()
+      if isInvalidAttribute(event['title']):
+        return
       parse_event.title = event['title']
-      print parse_event.title
+      if isInvalidAttribute(event['description']):
+        return
       parse_event.description = event['description']
+      if isInvalidAttribute(event['id']):
+        return
       parse_event.eventId = event['id']
-      parse_event.location = GeoPoint(latitude=event['latitude'], longitude=event['longitude'])
+      try:
+        parse_event.location = GeoPoint(latitude=float(event['latitude']), longitude=float(event['longitude']))
+      except:
+        print "Invalid lat/long"
+      if isInvalidAttribute(event['venue_address']):
+        return
       parse_event.address = event['venue_address']
+      if isInvalidAttribute(event['venue_name']):
+        return
       parse_event.venueName = event['venue_name']
+      if isInvalidAttribute(event['start_time']):
+        return
       parse_event.startTime = event['start_time']
       parse_event.category = category
       return parse_event
