@@ -5,8 +5,11 @@ This is the data service for the TripSwiper application. It uses different APIs 
 To start:
 
 ```
-git clone https://github.com/mjp2220/TripSwiper-DataService.git
-vagrant up
-vagrant ssh
+$ git clone https://github.com/mjp2220/TripSwiper-DataService.git
+$ vagrant up
+$ vagrant ssh
+
+# Install ParsePy
+$ pip install git+https://github.com/dgrtwo/ParsePy.git
 ```
 
