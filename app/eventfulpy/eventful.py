@@ -9,7 +9,11 @@ __author__    = "Edward O'Connor <ted@eventful.com>"
 __copyright__ = "Copyright 2005, 2006 Eventful Inc."
 __license__   = "MIT"
 
-import md5
+import sys
+if sys.version_info >= (3, 0):
+    import hashlib
+else:
+    import md5
 import urllib
 
 import httplib2
@@ -36,7 +40,10 @@ If you don't have an application key, you can request one:
         if hasattr(self, 'user_key'):
             args['user'] = self.user
             args['user_key'] = self.user_key
-        args = urllib.urlencode(args)
+        if sys.version_info >= (3, 0):
+            args = urllib.parse.urlencode(args)
+        else:
+            args = urllib.urlencode(args)
         url = "http://%s/json/%s?%s" % (self.server, method, args)
 
         # Make the request
@@ -57,8 +64,12 @@ If you don't have an application key, you can request one:
     def login(self, user, password):
         "Login to the Eventful API as USER with PASSWORD."
         nonce = self.call('/users/login')['nonce']
-        response = md5.new(nonce + ':'
-                           + md5.new(password).hexdigest()).hexdigest()
+        if sys.version_info >= (3, 0):
+            response = hashlib.md5(nonce + ':'
+                               + hashlib.md5(password).hexdigest()).hexdigest()
+        else:
+            response = md5.new(nonce + ':'
+                               + md5.new(password).hexdigest()).hexdigest()
         login = self.call('/users/login', user=user, nonce=nonce,
                           response=response)
         self.user_key = login['user_key']
